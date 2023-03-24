@@ -19,7 +19,7 @@ const Create3DObject = async (isAnimation = true) => {
     const texturesBuffer = CreateGPUBuffer(device, cubeData.colors);
 
     const material = new Material;
-    await material.initialize(device, "img/chat.jpg");
+    await material.initialize(device, "img/image.jpg");
  
     const pipeline = device.createRenderPipeline({
         layout:'auto',
