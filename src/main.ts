@@ -2,6 +2,7 @@ import { InitGPU, CreateGPUBuffer, CreateTransforms, CreateViewProjection, Creat
 import shader from './shader.wgsl';
 import "./site.css";
 import { CubeData } from './vertex_data';
+import {Material} from './material';
 import { vec3, mat4 } from 'gl-matrix';
 import $ from 'jquery';
 const createCamera = require('3d-view-controls');
@@ -15,7 +16,10 @@ const Create3DObject = async (isAnimation = true) => {
     const cubeData = CubeData();
     const numberOfVertices = cubeData.positions.length / 3;
     const vertexBuffer = CreateGPUBuffer(device, cubeData.positions);
-    const colorBuffer = CreateGPUBuffer(device, cubeData.colors);
+    const texturesBuffer = CreateGPUBuffer(device, cubeData.colors);
+
+    const material = new Material;
+    await material.initialize(device, "img/chat.jpg");
  
     const pipeline = device.createRenderPipeline({
         layout:'auto',
@@ -34,10 +38,10 @@ const Create3DObject = async (isAnimation = true) => {
                     }]
                 },
                 {
-                    arrayStride: 12,
+                    arrayStride: 8,
                     attributes: [{
                         shaderLocation: 1,
-                        format: "float32x3",
+                        format: "float32x2",
                         offset: 0
                     }]
                 }
@@ -78,20 +82,49 @@ const Create3DObject = async (isAnimation = true) => {
 
     // create uniform buffer and layout
     const uniformBuffer = device.createBuffer({
-        size: 64,
+        size: 64 * 3,
         usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
+    });
+
+    const bindGroupLayout = device.createBindGroupLayout({
+        entries: [
+            {
+                binding: 0,
+                visibility: GPUShaderStage.VERTEX,
+                buffer: {}
+            },
+            {
+                binding: 1,
+                visibility: GPUShaderStage.FRAGMENT,
+                texture: {}
+            },
+            {
+                binding: 2,
+                visibility: GPUShaderStage.FRAGMENT,
+                sampler: {}
+            },
+        ]
+
     });
 
     const uniformBindGroup = device.createBindGroup({
         layout: pipeline.getBindGroupLayout(0),
-        entries: [{
-            binding: 0,
-            resource: {
-                buffer: uniformBuffer,
-                offset: 0,
-                size: 64
+        entries: [
+            {
+                binding: 0,
+                resource: {
+                    buffer: uniformBuffer
+                }
+            },
+            {
+                binding: 1,
+                resource: material.view
+            },
+            {
+                binding: 2,
+                resource: material.sampler
             }
-        }]
+        ]
     });
 
     let textureView = gpu.context.getCurrentTexture().createView();
@@ -135,9 +168,9 @@ const Create3DObject = async (isAnimation = true) => {
 
         renderPass.setPipeline(pipeline);
         renderPass.setVertexBuffer(0, vertexBuffer);
-        renderPass.setVertexBuffer(1, colorBuffer);
+        renderPass.setVertexBuffer(1, texturesBuffer);
         renderPass.setBindGroup(0, uniformBindGroup);
-        renderPass.draw(numberOfVertices);
+        renderPass.draw(numberOfVertices, 2, 0, 0);
         renderPass.end();
 
         device.queue.submit([commandEncoder.finish()]);

@@ -14,7 +14,9 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "strict": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks":false
   },
   "exclude": [
     "node_modules"
