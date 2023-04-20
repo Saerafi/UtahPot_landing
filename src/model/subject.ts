@@ -13,11 +13,12 @@ export class Subject {
     }
 
     update() {
-        this.eulers[2] += 1;
-        this.eulers[2] %= 360;
+        this.eulers[0] += 0;
+        this.eulers[0] %= 360;
 
         this.model = mat4.create();
         mat4.translate(this.model, this.model, this.position);
+        mat4.rotateX(this.model, this.model, Deg2Rad(this.eulers[0]));
         mat4.rotateY(this.model, this.model, Deg2Rad(this.eulers[1]));
         mat4.rotateZ(this.model, this.model, Deg2Rad(this.eulers[2]));
     }

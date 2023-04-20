@@ -28,7 +28,7 @@ export class Scene {
         this.make_quads();
 
         this.subject = new Subject(
-            [0, 0, 1.5], [0, 0, 0]
+            [0, 0, 1.5], [90, 0, 0]
         );
 
         this.player = new Camera(

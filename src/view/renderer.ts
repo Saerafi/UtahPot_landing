@@ -193,7 +193,7 @@ export class Renderer {
         this.triangleMesh = new TriangleMesh(this.device);
         this.quadMesh = new QuadMesh(this.device);
         this.subjectMesh = new ObjMesh();
-        await this.subjectMesh.initialize(this.device, "dist/mdls/rocket.obj");
+        await this.subjectMesh.initialize(this.device, "dist/mdls/pot2.obj");
         this.triangleMaterial = new Material();
         this.quadMaterial = new Material();
 
@@ -208,7 +208,7 @@ export class Renderer {
         };
         this.objectBuffer = this.device.createBuffer(modelBufferDescriptor);
 
-        await this.triangleMaterial.initialize(this.device, "dist/img/image.jpg", this.materialGroupLayout);
+        await this.triangleMaterial.initialize(this.device, "dist/img/chat.jpg", this.materialGroupLayout);
         await this.quadMaterial.initialize(this.device, "dist/img/floor.jpg", this.materialGroupLayout);
     }
 
