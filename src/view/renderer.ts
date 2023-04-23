@@ -6,6 +6,7 @@ import { vec3, mat4 } from "gl-matrix";
 import { Material } from "./material";
 import { object_types, RenderData } from "../model/definitions";
 
+
 export class Renderer {
 
     canvas: HTMLCanvasElement;
@@ -85,8 +86,8 @@ export class Renderer {
         };
 
         const size: GPUExtent3D = {
-            width: this.canvas.width,
-            height: this.canvas.height,
+            width: this.canvas.clientWidth * window.devicePixelRatio,
+            height: this.canvas.clientHeight * window.devicePixelRatio,
             depthOrArrayLayers: 1
         };
         const depthBufferDescriptor: GPUTextureDescriptor = {
@@ -193,7 +194,7 @@ export class Renderer {
         this.triangleMesh = new TriangleMesh(this.device);
         this.quadMesh = new QuadMesh(this.device);
         this.subjectMesh = new ObjMesh();
-        await this.subjectMesh.initialize(this.device, "dist/mdls/pot2.obj");
+        await this.subjectMesh.initialize(this.device, "dist/mdls/pot.obj");
         this.triangleMaterial = new Material();
         this.quadMaterial = new Material();
 
@@ -208,7 +209,7 @@ export class Renderer {
         };
         this.objectBuffer = this.device.createBuffer(modelBufferDescriptor);
 
-        await this.triangleMaterial.initialize(this.device, "dist/img/chat.jpg", this.materialGroupLayout);
+        await this.triangleMaterial.initialize(this.device, "dist/img/metal.jpg", this.materialGroupLayout);
         await this.quadMaterial.initialize(this.device, "dist/img/floor.jpg", this.materialGroupLayout);
     }
 
@@ -239,9 +240,13 @@ export class Renderer {
             return;
         }
 
+        //await this.makeDepthBufferResources();
+
         //make transforms
+        this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;
+        this.canvas.height = this.canvas.clientHeight * window.devicePixelRatio;
         const projection = mat4.create();
-        mat4.perspective(projection, Math.PI/4, 800/600, 0.1, 10);
+        mat4.perspective(projection, Math.PI/4, this.canvas.width / this.canvas.height, 0.1, 100);
 
         const view = renderables.view_transform;
 

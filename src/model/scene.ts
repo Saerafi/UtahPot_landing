@@ -24,15 +24,15 @@ export class Scene {
         this.triangle_count = 0;
         this.quad_count = 0;
 
-        this.make_triangles();
+        //this.make_triangles();
         this.make_quads();
 
         this.subject = new Subject(
-            [0, 0, 1.5], [90, 0, 0]
+            [0, 0, 1.0], [90, 0, 0]
         );
 
         this.player = new Camera(
-            [-2, 0, 2], 0, 0
+            [-3, 0, 1.0], 0, 0
         );
 
     }

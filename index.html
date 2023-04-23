@@ -1,15 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Utahpot</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UtahPot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="webviewerdesign.css"> 
 </head>
 <body>
-    <div id="container">
-        <canvas id="gfx-main" width = "1200" height = "900"></canvas>
+    <!-- Viewer container -->
+    <div id="viewer">
+        <button class="viewer-buttons settings">
+            <img class="image" src="dist/ico/Settings.svg" alt="Settings">
+            <!--<span class="button-text">Settings</span>-->
+        </button>
+        <div id="settings-dropdown">
+            <h1>Settings</h1>
+            <p>Textures</p>
+            <span class="settings-buttons">
+                <label>Focal Length</label>
+                <input id="focal-length" type="number" value="focal" min="0" max="100">
+            </span><br>
+            <span class="settings-buttons">
+                <label>FPS</label>
+                <input id="fps" type="checkbox" value="fps">
+            </span>
+            <p>Navigation</p>
+        </div>
+        <button class="viewer-buttons inspector">
+            <img class="image" src="dist/ico/Inspector.svg" alt="Inspector">
+            <!--<span class="button-text">Inspector</span>-->
+        </button>
+        <div id="inspector-dropdown">
+            <h1>Inspector</h1>
+            <h2>Regime</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="clickable">
+                <label>Clickable</label>
+            </span><br>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="clickable">
+                <label>Clickable optional</label>
+            </span>
+            <h2>Render</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="final">
+                <label>Final Render</label>
+            </span>
+            <h2>Albedo</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="albedo">
+                <label>Albedo</label>
+            </span>
+            <h2>Rafnes</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="rafnes">
+                <label>Rafnes</label>
+            </span>
+            <h2>Geometry</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="matcap">
+                <label>Matcap</label>
+            </span>
+            <h2>Normals</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="normals">
+                <label>Active</label>
+            </span>
+            <h2>Options</h2>
+            <span class="regime-buttons">
+                <input class="insp-check" type="checkbox" value="mesh">
+                <label>Model Mesh</label>
+            </span><br>
+            <span class="regime-buttons options">
+                <input class="insp-check" type="checkbox" value="vertex">
+                <label>Vertex Normals</label>
+            </span>
+        </div>
+        <button class="viewer-buttons upload">
+            <img class="image" src="dist/ico/Upload.svg" alt="Upload">
+            <!-- This displays text when mouse is hovered over an image,
+            disabled as it is not currently in use -->
+            <!--<span class="button-text">Upload</span>-->
+        </button>
+        <button class="viewer-buttons help">
+            <img class="image" src="dist/ico/Help.svg" alt="Help">
+            <!--<span class="button-text">Help</span>-->
+        </button>
+        <button id="fullscreen">
+            <img class="image full" src="dist/ico/Fullscreen.svg" alt="Fullscreen">
+        </button>
     </div>
+    <canvas id="gfx-main"></canvas>
+    <!-- Container with addons -->
+    <!--<div id="addons-cont">
+        <p class="addons-text">IN COLLECTIONS</p>
+        <div class="addons one"></div>
+        <div class="addons two"></div>
+        <div class="addons three"></div>
+        <p class="addons-text">SUGGESTED 3D MODELS</p>
+        <div class="addons four"></div>
+    </div>-->
     <script src="dist/main.bundle.js"></script>
+    <script src="dist/webviewerlogic.js"></script>
 </body>
 </html>
