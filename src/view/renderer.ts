@@ -1,7 +1,7 @@
 import shader from "./shaders/shader.wgsl";
 import { TriangleMesh } from "./triangle_mesh";
 import { QuadMesh } from "./quad_mesh";
-import {ObjMesh} from "./obj_mesh"
+import { ObjMesh } from "./obj_mesh"
 import { vec3, mat4 } from "gl-matrix";
 import { Material } from "./material";
 import { object_types, RenderData } from "../model/definitions";
@@ -43,7 +43,7 @@ export class Renderer {
         this.canvas = canvas;
     }
 
-   async Initialize() {
+    async Initialize() {
 
         await this.setupDevice();
 
@@ -132,6 +132,11 @@ export class Renderer {
                         type: "read-only-storage",
                         hasDynamicOffset: false
                     }
+                },
+                {
+                    binding: 2,
+                    visibility: GPUShaderStage.VERTEX,
+                    buffer: {}
                 }
             ]
 
@@ -194,7 +199,7 @@ export class Renderer {
         this.triangleMesh = new TriangleMesh(this.device);
         this.quadMesh = new QuadMesh(this.device);
         this.subjectMesh = new ObjMesh();
-        await this.subjectMesh.initialize(this.device, "dist/mdls/pot.obj");
+        await this.subjectMesh.initialize(this.device, "dist/mdls/UTAHPOT_POT.obj");
         this.triangleMaterial = new Material();
         this.quadMaterial = new Material();
 
@@ -209,7 +214,7 @@ export class Renderer {
         };
         this.objectBuffer = this.device.createBuffer(modelBufferDescriptor);
 
-        await this.triangleMaterial.initialize(this.device, "dist/img/metal.jpg", this.materialGroupLayout);
+        await this.triangleMaterial.initialize(this.device, "dist/img/pot_color_copy.png", this.materialGroupLayout);
         await this.quadMaterial.initialize(this.device, "dist/img/floor.jpg", this.materialGroupLayout);
     }
 
@@ -228,6 +233,12 @@ export class Renderer {
                     resource: {
                         buffer: this.objectBuffer,
                     }
+                },
+                {
+                    binding: 2,
+                    resource: {
+                        buffer: this.uniformBuffer
+                    }
                 }
             ]
         });
@@ -240,7 +251,11 @@ export class Renderer {
             return;
         }
 
-        //await this.makeDepthBufferResources();
+        if (this.canvas.width != this.canvas.clientWidth || this.canvas.height != this.canvas.clientHeight) {
+            this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;
+            this.canvas.height = this.canvas.clientHeight * window.devicePixelRatio;
+            //await this.makeDepthBufferResources();
+        }
 
         //make transforms
         this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;

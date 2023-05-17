@@ -19,7 +19,7 @@ export class ObjMesh {
     async initialize(device: GPUDevice, url: string) {
 
         await this.readFile(url);
-        this.vertexCount = this.vertices.length / 5;
+        this.vertexCount = this.vertices.length / 8;
 
         const usage: GPUBufferUsageFlags = GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST;
         //VERTEX: the buffer can be used as a vertex buffer
@@ -39,7 +39,7 @@ export class ObjMesh {
 
         //now define the buffer layout
         this.bufferLayout = {
-            arrayStride: 20,
+            arrayStride: 32,
             attributes: [
                 {
                     shaderLocation: 0,
@@ -50,6 +50,11 @@ export class ObjMesh {
                     shaderLocation: 1,
                     format: "float32x2",
                     offset: 12
+                },
+                {
+                    shaderLocation: 2,
+                    format: "float32x3",
+                    offset: 20
                 }
             ]
         }
@@ -146,11 +151,15 @@ export class ObjMesh {
         const v_vt_vn = vertex_description.split("/");
         const v = this.v[Number(v_vt_vn[0]).valueOf() - 1];
         const vt = this.vt[Number(v_vt_vn[1]).valueOf() - 1];
+        const vn = this.vn[Number(v_vt_vn[2]).valueOf() - 1];
         //ignoring normals for now
         result.push(v[0]);
         result.push(v[1]);
         result.push(v[2]);
         result.push(vt[0]);
         result.push(vt[1]);
+        result.push(vn[0]);
+        result.push(vn[1]);
+        result.push(vn[2]);
     }
 }

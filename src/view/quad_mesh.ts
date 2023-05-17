@@ -8,13 +8,13 @@ export class QuadMesh {
         // x y z u v
         const vertices: Float32Array = new Float32Array(
             [
-                -0.5, -0.5, 0.0, 0.0, 0.0,
-                 0.5, -0.5, 0.0, 1.0, 0.0,
-                 0.5,  0.5, 0.0, 1.0, 1.0,
+                -0.5, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                 0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+                 0.5,  0.5, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0,
 
-                 0.5,  0.5, 0.0, 1.0, 1.0,
-                -0.5,  0.5, 0.0, 0.0, 1.0,
-                -0.5, -0.5, 0.0, 0.0, 0.0
+                 0.5,  0.5, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                -0.5,  0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+                -0.5, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
             ]
         );
 
@@ -36,7 +36,7 @@ export class QuadMesh {
 
         //now define the buffer layout
         this.bufferLayout = {
-            arrayStride: 20,
+            arrayStride: 32,
             attributes: [
                 {
                     shaderLocation: 0,
@@ -47,6 +47,11 @@ export class QuadMesh {
                     shaderLocation: 1,
                     format: "float32x2",
                     offset: 12
+                },
+                {
+                    shaderLocation: 2,
+                    format: "float32x3",
+                    offset: 20
                 }
             ]
         }
