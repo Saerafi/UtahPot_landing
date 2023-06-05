@@ -135,9 +135,9 @@ export class Renderer {
                 },
                 {
                     binding: 2,
-                    visibility: GPUShaderStage.VERTEX,
+                    visibility: GPUShaderStage.FRAGMENT,
                     buffer: {}
-                }
+                },
             ]
 
         });
@@ -203,8 +203,9 @@ export class Renderer {
         this.triangleMaterial = new Material();
         this.quadMaterial = new Material();
 
+
         this.uniformBuffer = this.device.createBuffer({
-            size: 64 * 2,
+            size: 64 * 3,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
 
@@ -213,6 +214,7 @@ export class Renderer {
             usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
         };
         this.objectBuffer = this.device.createBuffer(modelBufferDescriptor);
+
 
         await this.triangleMaterial.initialize(this.device, "dist/img/pot_color_copy.png", this.materialGroupLayout);
         await this.quadMaterial.initialize(this.device, "dist/img/floor.jpg", this.materialGroupLayout);
@@ -237,11 +239,12 @@ export class Renderer {
                 {
                     binding: 2,
                     resource: {
-                        buffer: this.uniformBuffer
+                        buffer: this.uniformBuffer,
                     }
-                }
+                },
             ]
         });
+
     }
 
     async render(renderables: RenderData) {
@@ -264,6 +267,8 @@ export class Renderer {
         mat4.perspective(projection, Math.PI/4, this.canvas.width / this.canvas.height, 0.1, 100);
 
         const view = renderables.view_transform;
+        const light_pos = renderables.light_position;
+        
 
         this.device.queue.writeBuffer(
             this.objectBuffer, 0, 
@@ -271,7 +276,9 @@ export class Renderer {
             renderables.model_transforms.length
         );
         this.device.queue.writeBuffer(this.uniformBuffer, 0, <ArrayBuffer>view); 
-        this.device.queue.writeBuffer(this.uniformBuffer, 64, <ArrayBuffer>projection); 
+        this.device.queue.writeBuffer(this.uniformBuffer, 64, <ArrayBuffer>projection);
+
+        //this.device.queue.writeBuffer(this.uniformBuffer, 128, <ArrayBuffer>light_pos);
         
         //command encoder: records draw commands for submission
         const commandEncoder : GPUCommandEncoder = this.device.createCommandEncoder();
@@ -281,7 +288,7 @@ export class Renderer {
         const renderpass : GPURenderPassEncoder = commandEncoder.beginRenderPass({
             colorAttachments: [{
                 view: textureView,
-                clearValue: {r: 0.1, g: 0.9, b: 1.0, a: 1.0},
+                clearValue: {r: 0.71, g: 0.71, b: 0.71, a: 1.0},
                 loadOp: "clear",
                 storeOp: "store"
             }],
@@ -294,13 +301,13 @@ export class Renderer {
         var objects_drawn: number = 0;
 
         //Triangles
-        renderpass.setVertexBuffer(0, this.triangleMesh.buffer);
-        renderpass.setBindGroup(1, this.triangleMaterial.bindGroup); 
-        renderpass.draw(
-            3, renderables.object_counts[object_types.TRIANGLE], 
-            0, objects_drawn
-        );
-        objects_drawn += renderables.object_counts[object_types.TRIANGLE];
+        // renderpass.setVertexBuffer(0, this.triangleMesh.buffer);
+        // renderpass.setBindGroup(1, this.triangleMaterial.bindGroup); 
+        // renderpass.draw(
+        //     3, renderables.object_counts[object_types.TRIANGLE], 
+        //     0, objects_drawn
+        // );
+        // objects_drawn += renderables.object_counts[object_types.TRIANGLE];
 
         //Quads
         renderpass.setVertexBuffer(0, this.quadMesh.buffer);
@@ -319,6 +326,8 @@ export class Renderer {
             0, objects_drawn
         );
         objects_drawn += 1;
+
+        
 
         renderpass.end();
     

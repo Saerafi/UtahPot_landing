@@ -2,6 +2,7 @@ import { Triangle } from "./triangle";
 import { Quad } from "./quad";
 import { Subject } from "./subject";
 import { Camera } from "./camera";
+import { Light } from "./light";
 import { Deg2Rad } from "./math";
 import { vec3,mat4 } from "gl-matrix";
 import { object_types, RenderData } from "./definitions";
@@ -12,6 +13,7 @@ export class Scene {
     quads: Quad[];
     subject: Subject;
     player: Camera;
+    light: Light;
     object_data: Float32Array;
     triangle_count: number;
     quad_count: number;
@@ -25,14 +27,18 @@ export class Scene {
         this.quad_count = 0;
 
         //this.make_triangles();
-        this.make_quads();
+        //this.make_quads();
 
         this.subject = new Subject(
-            [0, 0, 1.0], [90, 0, 0]
+            [0, 0, -2.0], [90, 55, 0]
+        );
+
+        this.light = new Light(
+            [0, -5, 1.0], 0, 90
         );
 
         this.player = new Camera(
-            [-3, 0, 1.0], 0, 0
+            [-5, 3.5, 5.0], -30, -20
         );
 
     }
@@ -110,16 +116,22 @@ export class Scene {
         i++;
 
         this.player.update();
+        this.light.update();
     }
 
     get_player(): Camera {
         return this.player;
     }
 
+    get_light(): Light {
+        return this.light;
+    }
+
     get_renderables(): RenderData {
         return {
             view_transform: this.player.get_view(),
             model_transforms: this.object_data,
+            light_position: this.light.position,
             object_counts: {
                 [object_types.TRIANGLE]: this.triangle_count,
                 [object_types.QUAD]: this.quad_count,

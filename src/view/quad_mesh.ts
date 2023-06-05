@@ -52,7 +52,7 @@ export class QuadMesh {
                     shaderLocation: 2,
                     format: "float32x3",
                     offset: 20
-                }
+                },
             ]
         }
 
