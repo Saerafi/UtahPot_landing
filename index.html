@@ -7,103 +7,98 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="webviewerdesign.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="webviewerdesign.css">
+    
+    
 </head>
 <body>
-    <!-- Viewer container -->
+<div class="nav-menu">
+    <a class="nav-links intr" href="#intro-one">INTRO</a>
+    <a class="nav-links abt" href="#page-one">ABOUT</a>
+    <a class="nav-links vwr" href="#page-two">VIEWER</a>
+    <p class="utahpot">UTAHPOT</p>
+</div>
+<div id="intro-one">
+    <p>UTAHPOT</p>
+    <a href="#page-one">SKIP INTRO</a>
+</div>
+<div class="intro two">
+    <p class="lax lax_preset_zigzag:150:300">JS LIBRARY</p>
+    <p class="lax lax_preset_zigzag:175:300">TO WORK WITH GPU</p>
+    <p class="lax lax_preset_zigzag:200:300">WITH SPEED OF CUDA</p>
+    <p class="lax lax_preset_zigzag:225:300">AND CONVENIENCE OF THREEJS</p>
+</div>
+<div class="intro three">
+    <p class="lax lax_preset_zigzag:200:300">WEBGPU API</p>
+    <p class="lax lax_preset_zigzag:175:300">10X FASTER</p>
+    <p class="lax lax_preset_zigzag:150:300">THAN WEBGL</p>
+</div>
+<div class="intro four">
+    <p class="lax lax_preset_zigzag:175:300">UNCOMPROMISING</p>
+    <p class="lax lax_preset_zigzag:200:300">GRAPHICS</p>
+    <p class="lax lax_preset_zigzag:225:300">IN YOUR</p>
+    <p class="lax lax_preset_zigzag:150:300">BROWSER</p>
+</div>
+<div id="page-one" class="page-one">
+    <div class="about-container">
+            <img class="image-question" src="dist/ico/question.png" alt="Why">
+        <div class="about-text">
+            <h1>Who? What? Why?</h1>
+            <p>We are a team of students who want to change how developers interact with 3D graphics in the browser using a unique library.
+                One of the main problems with existing solutions is their complexity and focus primarily on 3D artists rather than developers.
+                <br>We have decided to change that.</p>
+        </div>
+    </div>
+    <div class="about-container">
+        <div class="about-text">
+            <h1>Designed with developers' needs in mind.</h1>
+            <p>We have ditched outdated technologies and focused exclusively on WebGPU to work with the graphics card.<br>
+                This allows us to improve performance compared to our competitors significantly.
+                <br>We believe that this will help developers create immersive and high-performance 3D projects with ease.</p>
+        </div>
+        <img class="image-gpu" src="dist/ico/webgpu.png" alt="WebGPU Logo">
+    </div>
+</div>
+<div class="page-one extend">
+</div>
+<div id="page-two">
+    <p id="poc">OUR POC — 3D MODEL VIEWER</p>
     <div id="viewer">
-        <button class="viewer-buttons settings">
-            <img class="image" src="dist/ico/Settings.svg" alt="Settings">
-            <!--<span class="button-text">Settings</span>-->
+        <!--<button class="viewer-buttons settings">
+            <img class="image" src="Settings.svg" alt="Settings">
         </button>
-        <div id="settings-dropdown">
-            <h1>Settings</h1>
-            <p>Textures</p>
-            <span class="settings-buttons">
-                <label>Focal Length</label>
-                <input id="focal-length" type="number" value="focal" min="0" max="100">
-            </span><br>
-            <span class="settings-buttons">
-                <label>FPS</label>
-                <input id="fps" type="checkbox" value="fps">
-            </span>
-            <p>Navigation</p>
-        </div>
         <button class="viewer-buttons inspector">
-            <img class="image" src="dist/ico/Inspector.svg" alt="Inspector">
-            <!--<span class="button-text">Inspector</span>-->
+            <img class="image" src="Inspector.svg" alt="Inspector">
         </button>
-        <div id="inspector-dropdown">
-            <h1>Inspector</h1>
-            <h2>Regime</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="clickable">
-                <label>Clickable</label>
-            </span><br>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="clickable">
-                <label>Clickable optional</label>
-            </span>
-            <h2>Render</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="final">
-                <label>Final Render</label>
-            </span>
-            <h2>Albedo</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="albedo">
-                <label>Albedo</label>
-            </span>
-            <h2>Rafnes</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="rafnes">
-                <label>Rafnes</label>
-            </span>
-            <h2>Geometry</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="matcap">
-                <label>Matcap</label>
-            </span>
-            <h2>Normals</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="normals">
-                <label>Active</label>
-            </span>
-            <h2>Options</h2>
-            <span class="regime-buttons">
-                <input class="insp-check" type="checkbox" value="mesh">
-                <label>Model Mesh</label>
-            </span><br>
-            <span class="regime-buttons options">
-                <input class="insp-check" type="checkbox" value="vertex">
-                <label>Vertex Normals</label>
-            </span>
-        </div>
         <button class="viewer-buttons upload">
-            <img class="image" src="dist/ico/Upload.svg" alt="Upload">
-            <!-- This displays text when mouse is hovered over an image,
-            disabled as it is not currently in use -->
-            <!--<span class="button-text">Upload</span>-->
-        </button>
+            <img class="image" src="Upload.svg" alt="Upload">
+        </button>-->
         <button class="viewer-buttons help">
             <img class="image" src="dist/ico/Help.svg" alt="Help">
-            <!--<span class="button-text">Help</span>-->
         </button>
+        <div class="help-popup">
+            <p>ATTENTION!!! At this time, we know about a problem with WebGPU that can occur when changing the size of the viewer.  
+                If the page freezes and the viewer stops displaying the model, reload the page.</p>
+        </div>
         <button id="fullscreen">
             <img class="image full" src="dist/ico/Fullscreen.svg" alt="Fullscreen">
         </button>
     </div>
     <canvas id="gfx-main"></canvas>
-    <!-- Container with addons -->
-    <!--<div id="addons-cont">
-        <p class="addons-text">IN COLLECTIONS</p>
-        <div class="addons one"></div>
-        <div class="addons two"></div>
-        <div class="addons three"></div>
-        <p class="addons-text">SUGGESTED 3D MODELS</p>
-        <div class="addons four"></div>
-    </div>-->
-    <script src="dist/main.bundle.js"></script>
+    <p id="pre">PRE LAUNCH — FALL 2023</p>
     <script src="dist/webviewerlogic.js"></script>
+    <script src="dist/main.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+</div>
+<footer>
+    <p>CONTACT US</p>
+    <a href="https://t.me/utahpot" target="_blank"><img src="dist/ico/telegram.svg" alt="Telegram"></a>
+    <a href="https://github.com/saerafi" target="_blank"><img src="dist/ico/github.svg" alt="GitHub"></a>
+    <a href="https://www.reddit.com/r/Utahpot/" target="_blank"><img src="dist/ico/reddit.svg" alt="Reddit"></a>
+    <a href="https://linkedin.com/" target="_blank"><img src="dist/ico/linkedin.svg" alt="LinkedIn"></a>
+    <p id="credential">@UTAHPOT 2023.</p>
+</footer>
 </body>
 </html>
