@@ -38,9 +38,14 @@ export class Renderer {
     quadMaterial: Material;
     objectBuffer: GPUBuffer;
 
+    // Frame size
+    frameWidth: number;
+    frameHeight: number;
 
     constructor(canvas: HTMLCanvasElement){
         this.canvas = canvas;
+        this.frameWidth = this.canvas.clientWidth;
+        this.frameHeight = this.canvas.clientHeight;
     }
 
     async Initialize() {
@@ -86,8 +91,8 @@ export class Renderer {
         };
 
         const size: GPUExtent3D = {
-            width: this.canvas.clientWidth * window.devicePixelRatio,
-            height: this.canvas.clientHeight * window.devicePixelRatio,
+            width: this.canvas.clientWidth * (window.devicePixelRatio || 1),
+            height: this.canvas.clientHeight * (window.devicePixelRatio || 1),
             depthOrArrayLayers: 1
         };
         const depthBufferDescriptor: GPUTextureDescriptor = {
@@ -254,15 +259,24 @@ export class Renderer {
             return;
         }
 
-        if (this.canvas.width != this.canvas.clientWidth || this.canvas.height != this.canvas.clientHeight) {
-            this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;
-            this.canvas.height = this.canvas.clientHeight * window.devicePixelRatio;
-            //await this.makeDepthBufferResources();
-        }
+        // console.log(window.devicePixelRatio);
+        // console.log(this.canvas.clientWidth);
+        // console.log(this.canvas.width);
+        // console.log(this.canvas.clientHeight);
+        // console.log(this.canvas.height);
+        // console.log();
 
-        //make transforms
-        this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;
-        this.canvas.height = this.canvas.clientHeight * window.devicePixelRatio;
+        const dpr = window.devicePixelRatio;
+        const displayWidth  = this.canvas.clientWidth * dpr;
+        const displayHeight = this.canvas.clientHeight * dpr;
+
+        if (this.canvas.width !== displayWidth || this.canvas.height !== displayHeight) {
+            this.canvas.width  = displayWidth;
+            this.canvas.height = displayHeight;
+            this.depthStencilBuffer.destroy();
+            await this.makeDepthBufferResources();
+        }
+        
         const projection = mat4.create();
         mat4.perspective(projection, Math.PI/4, this.canvas.width / this.canvas.height, 0.1, 100);
 

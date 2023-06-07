@@ -53,6 +53,12 @@ export class App {
         this.scene.update();
         this.scene.move_player(this.forwards_amount, this.right_amount);
 
+        // if (this.canvas.width != this.canvas.clientWidth || this.canvas.height != this.canvas.clientHeight) {
+        //     this.canvas.width = this.canvas.clientWidth * window.devicePixelRatio;
+        //     this.canvas.height = this.canvas.clientHeight * window.devicePixelRatio;
+        //     this.renderer.makeDepthBufferResources();
+        // }
+
         this.renderer.render(
             this.scene.get_renderables()
         );

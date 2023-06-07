@@ -1,54 +1,66 @@
-window.onload = function () {
-    // Initialize objects needed for buttons logic
-    const settingsBtn = document.querySelector('.settings');
-    const fullBtn = document.getElementById('fullscreen');
-    const inspButton = document.querySelector('.inspector');
-    const setDropdown = document.getElementById('settings-dropdown');
-    const inspDropdown = document.getElementById('inspector-dropdown');
-    const viewerCont = document.getElementById('viewer');
-    // const addonsCont = document.getElementById('addons-cont');
-    const btnImage = document.querySelector('.full');
-    // When options clicked
-    settingsBtn.addEventListener('click', function () {
-        // If menu not displayed, display it
-        if (setDropdown.style.display === 'none') {
-            setDropdown.style.display = 'block';
-            inspDropdown.style.display = 'none';
-            // If displayed, close menu
+window.onload = () => {
+    // Initialise lax.js library for parallax animations
+    lax.init()
+
+    lax.addDriver('scrollY', () => {
+        return window.scrollY
+    })
+
+    const fullscreenImage = document.querySelector('.full');
+    const pageOne = document.querySelector('.page-one');
+    const pageTwo = document.getElementById('page-two');
+    const viewerContainer = document.getElementById('viewer');
+
+    $('.help-popup').hide();
+    $('.help').click(() => {
+        if ($('.help-popup').css('display') == 'none') {
+            $('.help-popup').show();
         } else {
-            setDropdown.style.display = 'none';
+            $('.help-popup').hide();
         }
     });
-    inspButton.addEventListener('click', function () {
-        if (inspDropdown.style.display === 'none') {
-            inspDropdown.style.display = 'block';
-            setDropdown.style.display = 'none'
-        } else {
-            inspDropdown.style.display = 'none';
-        }
-    });
-    // When fullscreen clicked
-    fullBtn.addEventListener('click', function () {
-        // If viewer not in full screen scale it
-        if (viewerCont.style.height === '64%' && viewerCont.style.width === '52%') {
-            viewerCont.requestFullscreen();
-            viewerCont.style.height = '100%';
-            viewerCont.style.width = '100%';
-            viewerCont.style.borderRadius = '0px';
-            // addonsCont.style.display = 'none';
-            btnImage.src = 'dist/ico/ScreenDownsize.svg';
-            inspDropdown.style.display = 'none';
-            setDropdown.style.display = 'none';
+
+    $('#viewer, #gfx-main').css('height', '64vh');
+    $('#viewer, #gfx-main').css('width', '52vw');
+    // On fullscreen click
+    $('#fullscreen').click(() => {
+        // Scale to fullscreen
+        if (viewerContainer.style.height === '64vh' && viewerContainer.style.width === '52vw') {
+            pageTwo.requestFullscreen();
+            $('#viewer, #gfx-main').css('height', '100vh');
+            $('#viewer, #gfx-main').css('width', '100vw');
+            $('#viewer, #gfx-main').css('border-radius', '0px');
+            fullscreenImage.src = 'dist/ico/ScreenDownsize.svg';
             // Resize back to normal
         } else {
             document.exitFullscreen();
-            viewerCont.style.height = '64%';
-            viewerCont.style.width = '52%';
-            viewerCont.style.borderRadius = '10px';
-            // addonsCont.style.display = 'block';
-            btnImage.src = 'dist/ico/Fullscreen.svg';
-            inspDropdown.style.display = 'none';
-            setDropdown.style.display = 'none';
+            $('#viewer, #gfx-main').css('height', '64vh');
+            $('#viewer, #gfx-main').css('width', '52vw');
+            $('#viewer, #gfx-main').css('border-radius', '10px');
+            fullscreenImage.src = 'dist/ico/Fullscreen.svg';
+        }
+    });
+
+    $('.nav-menu').hide();
+    // Navigation menu behaviour when scrolling page
+    window.addEventListener('scroll', () => {
+        // Initialize objects needed
+        const scrollPosition = window.scrollY;
+        // Show after intro
+        if (scrollPosition >= pageOne.offsetHeight * 4) {
+            $('.nav-menu').show();
+            // Style for about page
+            if (scrollPosition >= pageOne.offsetHeight * 4 && scrollPosition < pageOne.offsetHeight * 6) {
+                $('.utahpot, .intr, .abt, .vwr').css('color', 'black');
+                $('.nav-menu').css('border-color','black');
+                // Style for viewer page
+            } else {
+                $('.utahpot, .intr, .abt, .vwr').css('color', 'white');
+                $('.nav-menu').css('border-color','white');
+            }
+            // Hide on intro
+        } else {
+            $('.nav-menu').hide();
         }
     });
 }
