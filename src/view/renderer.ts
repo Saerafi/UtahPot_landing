@@ -210,7 +210,7 @@ export class Renderer {
 
 
         this.uniformBuffer = this.device.createBuffer({
-            size: 64 * 3,
+            size: 64 * 2 + 12,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
 
@@ -259,13 +259,6 @@ export class Renderer {
             return;
         }
 
-        // console.log(window.devicePixelRatio);
-        // console.log(this.canvas.clientWidth);
-        // console.log(this.canvas.width);
-        // console.log(this.canvas.clientHeight);
-        // console.log(this.canvas.height);
-        // console.log();
-
         const dpr = window.devicePixelRatio;
         const displayWidth  = this.canvas.clientWidth * dpr;
         const displayHeight = this.canvas.clientHeight * dpr;
@@ -292,7 +285,7 @@ export class Renderer {
         this.device.queue.writeBuffer(this.uniformBuffer, 0, <ArrayBuffer>view); 
         this.device.queue.writeBuffer(this.uniformBuffer, 64, <ArrayBuffer>projection);
 
-        //this.device.queue.writeBuffer(this.uniformBuffer, 128, <ArrayBuffer>light_pos);
+        this.device.queue.writeBuffer(this.uniformBuffer, 128, <ArrayBuffer>light_pos);
         
         //command encoder: records draw commands for submission
         const commandEncoder : GPUCommandEncoder = this.device.createCommandEncoder();
