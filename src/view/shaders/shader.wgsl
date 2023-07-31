@@ -24,7 +24,7 @@ struct Fragment {
     @builtin(position) Position : vec4<f32>,
     @location(0) VPos : vec4<f32>,
     @location(1) VTexCoord : vec2<f32>,
-    @location(2) VNormals : vec4<f32>
+    @location(2) VNormals : vec3<f32>
 };
 
 @vertex
@@ -32,7 +32,7 @@ fn vs_main(
     @builtin(instance_index) ID: u32,
     @location(0) vertexPostion: vec3<f32>, 
     @location(1) vertexTexCoord: vec2<f32>,
-    @location(2) vertexNormals: vec4<f32> ) -> Fragment {
+    @location(2) vertexNormals: vec3<f32> ) -> Fragment {
 
     var output : Fragment;
     output.Position = transformUBO.projection * transformUBO.view * objects.model[ID] * vec4<f32>(vertexPostion, 1.0);
@@ -51,10 +51,10 @@ fn fs_main(fragData: Fragment) -> @location(0) vec4<f32> {
     let specularStrength = 0.2;
     let specularShininess = 32.;
 
-    let vNormal = normalize(fragData.VNormals.xyz);
+    let vNormal = normalize(fragData.VNormals);
     let vPosition = fragData.VPos.xyz;
     //let vCameraPosition = cameraPosition;
-    let lPosition = vec3<f32>(-3, 5, 0);
+    let lPosition = lights;
 
     let lightDir = normalize(lPosition - vPosition);
     let lightMagnitude = dot(vNormal, lightDir);

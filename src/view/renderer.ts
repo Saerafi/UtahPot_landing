@@ -210,7 +210,7 @@ export class Renderer {
 
 
         this.uniformBuffer = this.device.createBuffer({
-            size: 64 * 3,
+            size: 64 * 2 + 12,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
 
@@ -258,13 +258,6 @@ export class Renderer {
         if (!this.device || !this.pipeline) {
             return;
         }
-
-        // console.log(window.devicePixelRatio);
-        // console.log(this.canvas.clientWidth);
-        // console.log(this.canvas.width);
-        // console.log(this.canvas.clientHeight);
-        // console.log(this.canvas.height);
-        // console.log();
 
         const dpr = window.devicePixelRatio;
         const displayWidth  = this.canvas.clientWidth * dpr;

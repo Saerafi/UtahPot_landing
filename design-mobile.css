@@ -1,4 +1,4 @@
-@media screen and (min-width: 601px) {
+@media screen and (max-width: 600px) {
     * {
         margin: 0;
         padding: 0;
@@ -8,17 +8,17 @@
     #poc {
         color: white;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 3vw;
+        font-size: 3vh;
         margin: 0 0 auto 0;
-        padding: 4vw 0 0 0;
+        padding: 10vh 0 0 0;
     }
 
     #pre {
         color: white;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 3vw;
+        font-size: 3vh;
         margin: auto 0 0 0;
-        padding: 0 0 4vw 0;
+        padding: 0 0 10vh 0;
     }
 
     .about-container {
@@ -32,23 +32,23 @@
     .about-text {
         height: auto;
         width: auto;
-        font-size: 1.5vw;
+        font-size: 1.5vh;
         font-family: 'Montserrat', sans-serif;
-        padding: 0 2vw 0 2vw;
+        padding: 0 2vh 0 2vh;
     }
 
     .about-text h1 {
-        font-size: 2vw;
+        font-size: 2vh;
     }
 
     .image-question {
-        height: 10vw;
-        width: 10vw;
+        height: 10vh;
+        width: 10vh;
     }
 
     .image-gpu {
-        height: 13vw;
-        width: 13vw;
+        height: 13vh;
+        width: 13vh;
     }
 
     .help-popup {
@@ -59,13 +59,13 @@
         background-color: rgba(69, 69, 69, .5);
         color: white;
         font-family: 'Montserrat', sans-serif;
-        font-size: 1vw;
+        font-size: 1vh;
         text-align: center;
         border-radius: 4px;
         align-self: flex-start;
         z-index: 9999;
-        padding: .5vw;
-        margin: calc(35px + 1vw) 0 0 .5vw;
+        padding: .5vh;
+        margin: calc(35px + 1vh) 0 0 .5vh;
     }
 
     #help-ok {
@@ -75,7 +75,7 @@
         color: white;
         font-family: 'Montserrat', sans-serif;
         font-size: 1vw;
-        padding: .5vw .5vw 0 .5vw;
+        padding: .5vh .5vh 0 .5vh;
     }
 
     .nav-div {
@@ -103,8 +103,8 @@
     }
     .nav-div ul li {
         display: inline;
-        padding: 0 2.5vw;
-        font-size: 1.5vw;
+        padding: 0 2.5vh;
+        font-size: 1.5vh;
     }
     .nav-div ul li a {
         text-decoration: none;
@@ -113,8 +113,8 @@
     }
     .nav-div p {
         transform: rotate(-90deg);
-        font-size: 1.5vw;
-        padding: 0 10.5vw 0 0;
+        font-size: 1.5vh;
+        padding: 0 10.5vh 0 0;
         transition: color 1s ease-out;
     }
 
@@ -139,12 +139,12 @@
 
     #intro-one p {
         color: white;
-        font-size: 25vw;
+        font-size: 15vh;
     }
 
     #intro-one a {
         color: white;
-        font-size: 2vw;
+        font-size: 2vh;
         text-decoration: none;
     }
 
@@ -153,7 +153,7 @@
         justify-content: center;
         align-items: center;
         flex-flow: column nowrap;
-        font-size: 8vw;
+        font-size: 8vh;
         color: white;
     }
 
@@ -162,7 +162,7 @@
         justify-content: center;
         align-items: center;
         flex-flow: column nowrap;
-        font-size: 8vw;
+        font-size: 8vh;
         color: white;
     }
 
@@ -171,7 +171,7 @@
         justify-content: center;
         align-items: center;
         flex-flow: column nowrap;
-        font-size: 8vw;
+        font-size: 8vh;
         color: white;
     }
 
@@ -214,7 +214,7 @@
 
     .viewer-buttons {
         background-color: transparent;
-        margin: .5vw 0 0 .5vw;
+        margin: .5vh 0 0 .5vh;
         width: 35px;
         height: 35px;
         border-radius: 4px;
@@ -241,8 +241,8 @@
         border-radius: 4px;
         border: none;
         align-self: flex-end;
-        margin-bottom: .5vw;
-        margin-right: .5vw;
+        margin-bottom: .5vh;
+        margin-right: .5vh;
         margin-left: auto;
         z-index: 9999;
     }
@@ -268,20 +268,20 @@
     footer p {
         color: white;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 3vw;
-        padding: 1vw .5vw 0 .5vw;
+        font-size: 3vh;
+        padding: 1vh .5vh 0 .5vh;
     }
 
     footer a {
         background-color: transparent;
         border: none;
-        padding: .5vw;
+        padding: .5vh;
         display: inline-flex;
     }
 
     #credential {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 1.5vw;
-        padding: .5vw;
+        font-size: 1.5vh;
+        padding: .5vh;
     }
 }

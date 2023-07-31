@@ -9,15 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="webviewerdesign.css">
+    <link rel="stylesheet" href="design-mobile.css">
     
     
 </head>
 <body>
-<div class="nav-menu">
-    <a class="nav-links intr" href="#intro-one">INTRO</a>
-    <a class="nav-links abt" href="#page-one">ABOUT</a>
-    <a class="nav-links vwr" href="#page-two">VIEWER</a>
-    <p class="utahpot">UTAHPOT</p>
+<div class="nav-div">
+    <ul>
+        <li><a class="menu-links" href="#intro-one">INTRO</a></li>
+        <li><a class="menu-links" href="#page-one">ABOUT</a></li>
+        <li><a class="menu-links" href="#page-two">VIEWER</a></li>
+    </ul>
+    <p id="menu-name">UTAHPOT</p>
 </div>
 <div id="intro-one">
     <p>UTAHPOT</p>
@@ -78,9 +81,10 @@
             <img class="image" src="dist/ico/Help.svg" alt="Help">
         </button>
         <div class="help-popup">
-            <p>For moving use WASD.           
-                ATTENTION!!! At this time, we know about a problem with WebGPU that can occur when changing the size of the viewer.  
-                If the page freezes and the viewer stops displaying the model, reload the page.</p>
+            <p>For camera control, please use WASD and your Mouse<br>
+                <strong>We know about a problem with WebGPU that can occur when changing the size of the viewer.
+                    If the page freezes and the viewer stops displaying the model, please reload the page.</strong>
+            <br><button id="help-ok">OK</button></p>
         </div>
         <button id="fullscreen">
             <img class="image full" src="dist/ico/Fullscreen.svg" alt="Fullscreen">
